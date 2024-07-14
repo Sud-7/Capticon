@@ -15,8 +15,13 @@ export default function PlayVideo({ captions, videoUrl }) {
   };
 
   return (
-    <div className="video-container">
-      <video style={{ width: "90%" }} src={videoUrl} controls>
+    <>
+      <video
+        className="w-[640px] h-[480px]"
+        loop={true}
+        src={videoUrl}
+        controls
+      >
         <track
           kind="subtitles"
           src={`data:text/vtt;charset=utf-8,${encodeURIComponent(
@@ -27,6 +32,6 @@ export default function PlayVideo({ captions, videoUrl }) {
           default
         />
       </video>
-    </div>
+    </>
   );
 }

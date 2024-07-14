@@ -7,7 +7,6 @@ const CaptionInput = ({ addCaption }) => {
   ]);
   const [errors, setErrors] = useState([]);
 
-  // this is for the push
   useEffect(() => {
     const handler = setTimeout(() => {
       addCaption(captions);
@@ -102,16 +101,22 @@ const CaptionInput = ({ addCaption }) => {
   };
 
   return (
-    <div className="caption-input-parent">
-      <button className="add-caption-button" onClick={handleAddCaption}>
+    <div className="w-max">
+      <button
+        className="flex-row-reverse px-5 py-3 text-lg bg-blue-500 text-white rounded transition-colors duration-300 hover:bg-blue-700"
+        onClick={handleAddCaption}
+      >
         Add Caption
       </button>
-      <div className="caption-child">
+      <div className="caption-child h-[75vh] mt-3 scrollbar overflow-y-auto">
         {captions.map((caption, index) => (
-          <div className="caption-parent">
-            <div key={index} className="caption-input-container">
-              <div className="input-container">
-                <div className="input-field">
+          <div
+            key={index}
+            className="caption-parent mr-2 border-gray-300 rounded shadow-lg p-3 hover:scale-[101%] transition-transform odd:bg-[#9747ffa6] even:bg-[#5331a9a2]"
+          >
+            <div className="caption-input-container flex justify-between items-start">
+              <div className="input-container w-[30%]">
+                <div className="input-field mb-1.5">
                   <ReactInputMask
                     type="text"
                     mask="99:99:99.999"
@@ -121,9 +126,10 @@ const CaptionInput = ({ addCaption }) => {
                       handleCaptionChange(index, "startTime", e.target.value)
                     }
                     placeholder="00:00:00.000"
+                    className="w-full p-2 bg-transparent border text-lg text-center border-gray-300 rounded text-white items-center"
                   />
                 </div>
-                <div className="input-field">
+                <div className="input-field mb-1.5">
                   <ReactInputMask
                     type="text"
                     mask="99:99:99.999"
@@ -133,20 +139,45 @@ const CaptionInput = ({ addCaption }) => {
                       handleCaptionChange(index, "endTime", e.target.value)
                     }
                     placeholder="00:00:00.000"
+                    className="w-full bg-transparent p-2 border text-lg text-center border-gray-300 rounded text-white"
                   />
                 </div>
               </div>
-              <div className="text-container">
+              <div className="text-container w-[70%] ml-[10px]">
                 <textarea
                   value={caption.text}
                   onChange={(e) =>
                     handleCaptionChange(index, "text", e.target.value)
                   }
                   placeholder="Enter caption text..."
+                  className="w-full h-[100px] p-2.5 text-lg border border-gray-300 rounded text-white bg-transparent"
                 />
               </div>
+              {index > 0 && (
+                <button
+                  className="remove-button ml-2 px-1 py-1 bg-red-500 text-white rounded"
+                  onClick={() => handleRemoveCaption(index)}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="2"
+                    stroke="currentColor"
+                    className="size-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M6 18 18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
+              )}
             </div>
-            {errors[index] && <p className="error-text">{errors[index]}</p>}
+            {errors[index] && (
+              <p className="error-text text-red-500 mt-2">{errors[index]}</p>
+            )}
           </div>
         ))}
       </div>
